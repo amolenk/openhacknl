@@ -39,24 +39,34 @@ namespace MinecraftTelemetryCollector
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                using (var rcon = RCONClient.INSTANCE)
+                try
                 {
-                    rcon.setupStream("ohnlt3vm.westeurope.cloudapp.azure.com", password: "cheesesteakjimmys");
-                    var answer = rcon.sendMessage(RCONMessageType.Command, "list");
-                    if (!string.IsNullOrEmpty(answer))
+                    using (var rcon = RCONClient.INSTANCE)
                     {
-                        Regex regex = new Regex(@"[a-z]*(?<TotalPlayers>\d+)\/(?<TotalCapacity>\d+).*:(?<PlayerList>.*)");
-                        var match = regex.Match(answer);
-                        var totalPlayers = match.Groups[1];
-                        var maxCapacity = match.Groups[2];
-                        var population = match.Groups[3];
+                        rcon.setupStream("ohnlt3vm.westeurope.cloudapp.azure.com", password: "cheesesteakjimmys");
+                        var answer = rcon.sendMessage(RCONMessageType.Command, "list");
+                        if (!string.IsNullOrEmpty(answer))
+                        {
+                            Regex regex = new Regex(@"[a-z]*(?<TotalPlayers>\d+)\/(?<TotalCapacity>\d+).*:(?<PlayerList>.*)");
+                            var match = regex.Match(answer);
+                            var totalPlayers = match.Groups[1];
+                            var maxCapacity = match.Groups[2];
+                            var population = match.Groups[3];
 
-                        string logmessage = $"#Players: {totalPlayers}, Max. Capacity: {maxCapacity}, Population: {population}";
-                        ServiceEventSource.Current.ServiceMessage(this.Context, logmessage);
+                            string logmessage = $"#Players: {totalPlayers}, Max. Capacity: {maxCapacity}, Population: {population}";
+                            ServiceEventSource.Current.ServiceMessage(this.Context, logmessage);
 
-                        // TODO publish telemetry
+                            // TODO publish telemetry
+                        }
+                        else
+                        {
+                            ServiceEventSource.Current.ServiceMessage(this.Context, "No result from server.");
+                        }
                     }
-
+                }
+                catch (Exception ex)
+                {
+                    ServiceEventSource.Current.ServiceMessage(this.Context, ex.ToString());
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);
