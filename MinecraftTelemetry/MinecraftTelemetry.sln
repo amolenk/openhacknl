@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.16
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{A07B5EB6-E848-4116-A8D0-A826331D98C6}") = "MinecraftTelemetry", "MinecraftTelemetry\MinecraftTelemetry.sfproj", "{30732BDF-0A60-46A4-AEE7-09C789E75068}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MinecraftTelemetryCollector", "MinecraftTelemetryCollector\MinecraftTelemetryCollector.csproj", "{5A9433D2-0E86-4F3B-8B85-966693F397C0}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Release|x64 = Release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{30732BDF-0A60-46A4-AEE7-09C789E75068}.Debug|x64.ActiveCfg = Debug|x64
+		{30732BDF-0A60-46A4-AEE7-09C789E75068}.Debug|x64.Build.0 = Debug|x64
+		{30732BDF-0A60-46A4-AEE7-09C789E75068}.Debug|x64.Deploy.0 = Debug|x64
+		{30732BDF-0A60-46A4-AEE7-09C789E75068}.Release|x64.ActiveCfg = Release|x64
+		{30732BDF-0A60-46A4-AEE7-09C789E75068}.Release|x64.Build.0 = Release|x64
+		{30732BDF-0A60-46A4-AEE7-09C789E75068}.Release|x64.Deploy.0 = Release|x64
+		{5A9433D2-0E86-4F3B-8B85-966693F397C0}.Debug|x64.ActiveCfg = Debug|x64
+		{5A9433D2-0E86-4F3B-8B85-966693F397C0}.Debug|x64.Build.0 = Debug|x64
+		{5A9433D2-0E86-4F3B-8B85-966693F397C0}.Release|x64.ActiveCfg = Release|x64
+		{5A9433D2-0E86-4F3B-8B85-966693F397C0}.Release|x64.Build.0 = Release|x64
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1C5C1511-275C-41F6-8872-C66B57CA71B4}
+	EndGlobalSection
+EndGlobal
