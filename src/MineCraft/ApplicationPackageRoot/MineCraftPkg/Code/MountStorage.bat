@@ -1,0 +1,1 @@
+net use F: \\containerstate.file.core.windows.net\state lfnb8QscbZDyffwyt/61ETfscdouE5HUFqOqxg2uv43nL/vWZKQcs30GdR4H9KqWy7F6xMejMLvlBefiXjlfIg== /user:Azure\containerstate

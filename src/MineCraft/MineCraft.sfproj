@@ -29,6 +29,7 @@
     <None Include="Scripts\Deploy-FabricApplication.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ApplicationPackageRoot\MineCraftPkg\Code\MountStorage.bat" />
     <Content Include="ApplicationPackageRoot\MineCraftPkg\Config\Settings.xml" />
     <Content Include="ApplicationPackageRoot\MineCraftPkg\ServiceManifest.xml" />
     <Content Include="packages.config" />
