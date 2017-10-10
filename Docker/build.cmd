@@ -1,1 +1,1 @@
-docker build -t ohnlt3azreg.azurecr.io/ohnlt3/minecraft-server:1.2 .
+docker build -t ohnlt3azreg.azurecr.io/ohnlt3/minecraft-server:2.1 .

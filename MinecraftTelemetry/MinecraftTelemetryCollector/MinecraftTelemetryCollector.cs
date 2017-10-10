@@ -54,7 +54,7 @@ namespace MinecraftTelemetryCollector
                     try
                     {
                         // get telemetry from Minecraft server
-                        rcon.setupStream("ohnlt3vm.westeurope.cloudapp.azure.com", password: "cheesesteakjimmys");
+                        rcon.setupStream("ohnlt3sfv2.westeurope.cloudapp.azure.com", password: "cheesesteakjimmys");
                         var answer = rcon.sendMessage(RCONMessageType.Command, "list");
                         if (!string.IsNullOrEmpty(answer))
                         {
