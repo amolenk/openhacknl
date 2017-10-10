@@ -20,9 +20,9 @@
                                     AzureActiveDirectory="true"
                                     ServerCertThumbprint="0123456789012345678901234567890123456789" />
   -->
-  <ClusterConnectionParameters ConnectionEndpoint="ohnlt3sf.westeurope.cloudapp.azure.com:19000" />
+  <ClusterConnectionParameters ConnectionEndpoint="ohnlt3sfv2.westeurope.cloudapp.azure.com:19000" />
   <ApplicationParameterFile Path="..\ApplicationParameters\Cloud.xml" />
-  <UpgradeDeployment Mode="Monitored" Enabled="false">
+  <UpgradeDeployment Mode="Monitored" Enabled="true">
     <Parameters FailureAction="Rollback" Force="True" />
   </UpgradeDeployment>
 </PublishProfile>
