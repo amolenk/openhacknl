@@ -20,6 +20,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ApplicationPackageRoot\ApplicationManifest.xml" />
+    <None Include="ApplicationPackageRoot\MineCraftPkg\Code\my.ps1">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="ApplicationParameters\Cloud.xml" />
     <None Include="ApplicationParameters\Local.1Node.xml" />
     <None Include="ApplicationParameters\Local.5Node.xml" />
@@ -29,9 +32,11 @@
     <None Include="Scripts\Deploy-FabricApplication.ps1" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationPackageRoot\MineCraftPkg\Code\MountStorage.bat" />
     <Content Include="ApplicationPackageRoot\MineCraftPkg\Config\Settings.xml" />
     <Content Include="ApplicationPackageRoot\MineCraftPkg\ServiceManifest.xml" />
+    <Content Include="ApplicationPackageRoot\MineCraftPkg\Code\my.cmd">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content
     <Content Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />

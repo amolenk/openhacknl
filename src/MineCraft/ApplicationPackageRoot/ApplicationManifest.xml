@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ApplicationManifest ApplicationTypeName="MineCraft"
-                     ApplicationTypeVersion="1.0.0"
+                     ApplicationTypeVersion="2.1.0"
                      xmlns="http://schemas.microsoft.com/2011/01/fabric"
                      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -11,12 +11,19 @@
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
-    <ServiceManifestRef ServiceManifestName="MineCraftPkg" ServiceManifestVersion="1.0.0" />
+    <ServiceManifestRef ServiceManifestName="MineCraftPkg" ServiceManifestVersion="2.1.0" />
     <ConfigOverrides />
     <Policies>
       <ContainerHostPolicies CodePackageRef="Code">
         <PortBinding ContainerPort="25565" EndpointRef="MineCraftPort25565"/>
         <PortBinding ContainerPort="25575" EndpointRef="MineCraftPort25575"/>
+        <!-- Do not add azurecr.io to AccountName -->
+        <RepositoryCredentials AccountName="ohnlt3azreg" Password="ahqzvnSH4Bphc+Z1+YeO=jDW6oOu8i3t" PasswordEncrypted="false"/>
+        <!--<Volume Source="c:\minecraft" Destination="c:\testminecraft" IsReadOnly="false"></Volume>-->
+        <!--<Volume Source="d:\myfolder" Destination="c:\testmountlocation2" IsReadOnly="true"> </Volume>
+        <Volume Source="myvolume1" Destination="c:\testmountlocation2" Driver="azurefile" IsReadOnly="true">
+           <DriverOption Name="share" Value="models"/>
+        </Volume>-->
       </ContainerHostPolicies>
     </Policies>
   </ServiceManifestImport>
