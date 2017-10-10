@@ -4,7 +4,7 @@ $ProgressPreference = 'SilentlyContinue'
 $share = $env:share
 $storagename = $env:storagename
 $passcode = $env:passcode
-$instanceid = $env:Fabric_ServicePackageInstanceSeqNum
+$instanceid = $env:Fabric_NodeId
 
 net use F: $share /u:AZURE\$storagename $passcode
 if (!(Test-Path "F:\$instanceid")) {  
