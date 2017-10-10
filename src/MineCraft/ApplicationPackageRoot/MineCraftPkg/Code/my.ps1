@@ -1,0 +1,2 @@
+﻿cmd /S /C net use I: \\containerstate.file.core.windows.net\state lfnb8QscbZDyffwyt/61ETfscdouE5HUFqOqxg2uv43nL/vWZKQcs30GdR4H9KqWy7F6xMejMLvlBefiXjlfIg== /user:Azure\containerstate
+Set-ItemProperty -Path 'HKLM:\SYSTEM\CurrentControlSet\Control\Session Manager\DOS Devices' -Name 'I:' -Value "\??\C:\data" -Type String; 

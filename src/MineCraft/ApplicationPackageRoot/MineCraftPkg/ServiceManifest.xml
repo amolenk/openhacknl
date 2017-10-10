@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ServiceManifest Name="MineCraftPkg"
-                 Version="1.0.0"
+                 Version="2.1.0"
                  xmlns="http://schemas.microsoft.com/2011/01/fabric"
                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
@@ -11,29 +11,33 @@
   </ServiceTypes>
 
   <!-- Code package is your service executable. -->
-  <CodePackage Name="Code" Version="1.0.0">
-    <SetupEntryPoint>
+  <CodePackage Name="Code" Version="2.1.0">
+    <!--<SetupEntryPoint>
       <ExeHost>
-        <Program>MountStorage.bat</Program>
+        <Program>my.cmd</Program>
         <WorkingFolder>CodePackage</WorkingFolder>
       </ExeHost>
-    </SetupEntryPoint>
+    </SetupEntryPoint>-->
     <EntryPoint>
       <!-- Follow this link for more information about deploying Windows containers to Service Fabric: https://aka.ms/sfguestcontainers -->
       <ContainerHost>
-        <ImageName>openhack/minecraft-server:1.0-nanoserver</ImageName>
+        <!--<ImageName>openhack/minecraft-server:2.0-nanoserver</ImageName>-->
+        <!--<ImageName>ohnlt3azreg.azurecr.io/daporo/test2:latest</ImageName>-->
+        <ImageName>ohnlt3azreg.azurecr.io/ohnlt3/minecraft-server:2.1</ImageName>
       </ContainerHost>
     </EntryPoint>
     <!-- Pass environment variables to your container: -->
     <EnvironmentVariables>
       <EnvironmentVariable Name="EULA" Value="TRUE"/>
+    <EnvironmentVariable Name="share" Value="\\containerstate.file.core.windows.net\mcstate"/>
+    <!--<EnvironmentVariable Name="instanceid" Value="ABCD"/>-->
+      <EnvironmentVariable Name="storagename" Value="containerstate"/>
+      <EnvironmentVariable Name="passcode" Value="lfnb8QscbZDyffwyt/61ETfscdouE5HUFqOqxg2uv43nL/vWZKQcs30GdR4H9KqWy7F6xMejMLvlBefiXjlfIg=="/>
     </EnvironmentVariables>
-  </CodePackage>
-
+</CodePackage>
   <!-- Config package is the contents of the Config directoy under PackageRoot that contains an 
        independently-updateable and versioned set of custom configuration settings for your service. -->
-  <ConfigPackage Name="Config" Version="1.0.0" />
-
+  <ConfigPackage Name="Config" Version="2.1.0" />
   <Resources>
     <Endpoints>
       <!-- This endpoint is used by the communication listener to obtain the port on which to 
