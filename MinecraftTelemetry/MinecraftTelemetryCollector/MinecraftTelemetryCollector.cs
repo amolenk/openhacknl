@@ -8,6 +8,10 @@ using Microsoft.ServiceFabric.Services.Communication.Runtime;
 using Microsoft.ServiceFabric.Services.Runtime;
 using MinecraftServerRCON;
 using System.Text.RegularExpressions;
+using Microsoft.ApplicationInsights;
+using Microsoft.ApplicationInsights.DataContracts;
+using Microsoft.ApplicationInsights.Extensibility;
+using Microsoft.ApplicationInsights.Channel;
 
 namespace MinecraftTelemetryCollector
 {
@@ -19,6 +23,8 @@ namespace MinecraftTelemetryCollector
         public MinecraftTelemetryCollector(StatelessServiceContext context)
             : base(context)
         { }
+
+        public ITelemetryChannel TelemetryChannel { get; private set; }
 
         /// <summary>
         /// Optional override to create listeners (e.g., TCP, HTTP) for this service replica to handle client or user requests.
@@ -35,14 +41,19 @@ namespace MinecraftTelemetryCollector
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
+            TelemetryConfiguration config = new TelemetryConfiguration("0ae11727-3b91-4eea-bbce-6cf19781a877");
+            config.TelemetryChannel.DeveloperMode = true;
+            var telemetryClient = new TelemetryClient(config);
+
             while (true)
             {
                 cancellationToken.ThrowIfCancellationRequested();
 
-                try
+                using (var rcon = RCONClient.INSTANCE)
                 {
-                    using (var rcon = RCONClient.INSTANCE)
+                    try
                     {
+                        // get telemetry from Minecraft server
                         rcon.setupStream("ohnlt3vm.westeurope.cloudapp.azure.com", password: "cheesesteakjimmys");
                         var answer = rcon.sendMessage(RCONMessageType.Command, "list");
                         if (!string.IsNullOrEmpty(answer))
@@ -56,17 +67,23 @@ namespace MinecraftTelemetryCollector
                             string logmessage = $"#Players: {totalPlayers}, Max. Capacity: {maxCapacity}, Population: {population}";
                             ServiceEventSource.Current.ServiceMessage(this.Context, logmessage);
 
-                            // TODO publish telemetry
+                            // publish telemetry
+                            telemetryClient.TrackTrace(logmessage);
+                            telemetryClient.TrackMetric(new MetricTelemetry("PlayerCount", Convert.ToDouble(totalPlayers.Value)));
+                            telemetryClient.TrackMetric(new MetricTelemetry("MaxPlayerCapacity", Convert.ToDouble(maxCapacity.Value)));
                         }
                         else
                         {
-                            ServiceEventSource.Current.ServiceMessage(this.Context, "No result from server.");
+                            string message = "No result from server.";
+                            ServiceEventSource.Current.ServiceMessage(this.Context, message);
+                            telemetryClient.TrackTrace(message);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    ServiceEventSource.Current.ServiceMessage(this.Context, ex.ToString());
+                    catch (Exception ex)
+                    {
+                        ServiceEventSource.Current.ServiceMessage(this.Context, ex.ToString());
+                        telemetryClient.TrackException(ex);
+                    }
                 }
 
                 await Task.Delay(TimeSpan.FromSeconds(5), cancellationToken);

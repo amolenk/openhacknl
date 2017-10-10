@@ -1,0 +1,21 @@
+# escape=`
+FROM minecraft-server:nanoserver
+
+SHELL ["powershell", "-Command", "$ErrorActionPreference = 'Stop'; $ProgressPreference = 'SilentlyContinue';"]
+
+ENV EULA=TRUE `
+    ONLINE_MODE=FALSE `
+    SEED=-9363708386013540 `
+    VERSION=1.12.1 `
+    DIFFICULTY=peaceful `
+    GUI=FALSE `
+    CONSOLE=FALSE
+
+ENV EULA=TRUE`
+    RCON_PASSWORD=cheesesteakjimmys
+
+COPY customstart.ps1 C:\minecraft
+
+WORKDIR c:\
+
+ENTRYPOINT [ "powershell", "-File", "C:\\minecraft\\customstart.ps1" ]

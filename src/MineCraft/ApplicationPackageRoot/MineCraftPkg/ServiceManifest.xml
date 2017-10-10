@@ -34,12 +34,10 @@
       <EnvironmentVariable Name="storagename" Value="containerstate"/>
       <EnvironmentVariable Name="passcode" Value="lfnb8QscbZDyffwyt/61ETfscdouE5HUFqOqxg2uv43nL/vWZKQcs30GdR4H9KqWy7F6xMejMLvlBefiXjlfIg=="/>
     </EnvironmentVariables>
-  </CodePackage>
-
+</CodePackage>
   <!-- Config package is the contents of the Config directoy under PackageRoot that contains an 
        independently-updateable and versioned set of custom configuration settings for your service. -->
   <ConfigPackage Name="Config" Version="2.1.0" />
-
   <Resources>
     <Endpoints>
       <!-- This endpoint is used by the communication listener to obtain the port on which to 
