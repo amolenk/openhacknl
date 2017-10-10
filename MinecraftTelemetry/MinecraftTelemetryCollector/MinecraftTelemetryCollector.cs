@@ -41,7 +41,7 @@ namespace MinecraftTelemetryCollector
         /// <param name="cancellationToken">Canceled when Service Fabric needs to shut down this service instance.</param>
         protected override async Task RunAsync(CancellationToken cancellationToken)
         {
-            TelemetryConfiguration config = new TelemetryConfiguration("74a07811-3400-432c-88ed-d63cb475a38e");
+            TelemetryConfiguration config = new TelemetryConfiguration("0ae11727-3b91-4eea-bbce-6cf19781a877");
             config.TelemetryChannel.DeveloperMode = true;
             var telemetryClient = new TelemetryClient(config);
 
@@ -71,16 +71,18 @@ namespace MinecraftTelemetryCollector
                             telemetryClient.TrackTrace(logmessage);
                             telemetryClient.TrackMetric(new MetricTelemetry("PlayerCount", Convert.ToDouble(totalPlayers.Value)));
                             telemetryClient.TrackMetric(new MetricTelemetry("MaxPlayerCapacity", Convert.ToDouble(maxCapacity.Value)));
-                            telemetryClient.Flush();
                         }
                         else
                         {
-                            ServiceEventSource.Current.ServiceMessage(this.Context, "No result from server.");
+                            string message = "No result from server.";
+                            ServiceEventSource.Current.ServiceMessage(this.Context, message);
+                            telemetryClient.TrackTrace(message);
                         }
                     }
                     catch (Exception ex)
                     {
                         ServiceEventSource.Current.ServiceMessage(this.Context, ex.ToString());
+                        telemetryClient.TrackException(ex);
                     }
                 }
 
