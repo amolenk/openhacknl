@@ -16,25 +16,16 @@ namespace GatewayAPI.Controllers
     {
         // GET api/minecraftservers
         [HttpGet]
-        public async Task<IEnumerable<Tenant>> Get()
+        public IEnumerable<Tenant> Get()
         {
-            ServicePartitionResolver resolver = ServicePartitionResolver.GetDefault();
+            string clusterUri = "http://ohnlt3sfv2.westeurope.cloudapp.azure.com";
 
-            ResolvedServicePartition partition =
-                 await resolver.ResolveAsync(new Uri("fabric:/MineCraft/MineCraft"), new ServicePartitionKey(), CancellationToken.None);
-
-            List<Tenant> tenants = new List<Tenant>();
-            foreach (var endpoint in partition.Endpoints)
+            List<Tenant> tenants = new List<Tenant>()
             {
-                JObject addressDeserialized = JObject.Parse(endpoint.Address);
-                var x = addressDeserialized["Endpoints"][""].Value<string>();
-                string address = new Uri(x).Host;
-                tenants.Add(new Tenant
-                {
-                    Name = address,
-                    Endpoints = new Endpoints { Minecraft = $"{address}:25565", RCON = $"{address}:25575" } 
-                });
-            }
+                new Tenant { Name = "Server 1", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9000", RCON = $"{clusterUri}:9001" }  },
+                new Tenant { Name = "Server 2", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9002", RCON = $"{clusterUri}:9003" }  },
+                new Tenant { Name = "Server 2", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9004", RCON = $"{clusterUri}:9005" }  }
+            };
 
             return tenants;
         }
