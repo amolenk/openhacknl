@@ -22,8 +22,8 @@ namespace GatewayAPI.Controllers
 
             List<Tenant> tenants = new List<Tenant>()
             {
-                new Tenant { Name = "tenant1", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9000", RCON = $"{clusterUri}:9001" }  },
-                new Tenant { Name = "tenant2", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9002", RCON = $"{clusterUri}:9003" }  },
+                new Tenant { Name = "Server1", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9000", RCON = $"{clusterUri}:9001" }  },
+                new Tenant { Name = "Server2", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9002", RCON = $"{clusterUri}:9003" }  },
             };
 
             return tenants;
