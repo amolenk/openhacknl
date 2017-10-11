@@ -18,13 +18,12 @@ namespace GatewayAPI.Controllers
         [HttpGet]
         public IEnumerable<Tenant> Get()
         {
-            string clusterUri = "http://ohnlt3sfv2.westeurope.cloudapp.azure.com";
+            string clusterUri = "ohnlt3sfv2.westeurope.cloudapp.azure.com";
 
             List<Tenant> tenants = new List<Tenant>()
             {
-                new Tenant { Name = "Server 1", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9000", RCON = $"{clusterUri}:9001" }  },
-                new Tenant { Name = "Server 2", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9002", RCON = $"{clusterUri}:9003" }  },
-                new Tenant { Name = "Server 2", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9004", RCON = $"{clusterUri}:9005" }  }
+                new Tenant { Name = "tenant1", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9000", RCON = $"{clusterUri}:9001" }  },
+                new Tenant { Name = "tenant2", Endpoints = new Endpoints { Minecraft = $"{clusterUri}:9002", RCON = $"{clusterUri}:9003" }  },
             };
 
             return tenants;

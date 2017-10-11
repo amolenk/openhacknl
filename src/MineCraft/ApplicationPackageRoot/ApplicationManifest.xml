@@ -5,18 +5,36 @@
                      xmlns:xsd="http://www.w3.org/2001/XMLSchema"
                      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Parameters>
+    <Parameter Name="Minecraft2_InstanceCount" DefaultValue="-1" />
     <Parameter Name="MineCraft_InstanceCount" DefaultValue="-1" />
   </Parameters>
   <!-- Import the ServiceManifest from the ServicePackage. The ServiceManifestName and ServiceManifestVersion 
        should match the Name and Version attributes of the ServiceManifest element defined in the 
        ServiceManifest.xml file. -->
   <ServiceManifestImport>
+    <ServiceManifestRef ServiceManifestName="Minecraft2Pkg" ServiceManifestVersion="1.0.0" />
+    <ConfigOverrides />
+    <Policies>
+      <ContainerHostPolicies CodePackageRef="Code">
+        <PortBinding ContainerPort="25565" EndpointRef="MC_Endpoint"/>
+        <PortBinding ContainerPort="25575" EndpointRef="RCON_Endpoint"/>
+        <!-- Do not add azurecr.io to AccountName -->
+        <RepositoryCredentials AccountName="ohnlt3azreg" Password="ahqzvnSH4Bphc+Z1+YeO=jDW6oOu8i3t" PasswordEncrypted="false"/>
+        <!--<Volume Source="c:\minecraft" Destination="c:\testminecraft" IsReadOnly="false"></Volume>-->
+        <!--<Volume Source="d:\myfolder" Destination="c:\testmountlocation2" IsReadOnly="true"> </Volume>
+        <Volume Source="myvolume1" Destination="c:\testmountlocation2" Driver="azurefile" IsReadOnly="true">
+           <DriverOption Name="share" Value="models"/>
+        </Volume>-->
+      </ContainerHostPolicies>
+    </Policies>
+  </ServiceManifestImport>
+  <ServiceManifestImport>
     <ServiceManifestRef ServiceManifestName="MineCraftPkg" ServiceManifestVersion="2.1.0" />
     <ConfigOverrides />
     <Policies>
       <ContainerHostPolicies CodePackageRef="Code">
-        <PortBinding ContainerPort="25565" EndpointRef="MineCraftPort25565"/>
-        <PortBinding ContainerPort="25575" EndpointRef="MineCraftPort25575"/>
+        <PortBinding ContainerPort="25565" EndpointRef="MC_Endpoint"/>
+        <PortBinding ContainerPort="25575" EndpointRef="RCON_Endpoint"/>
         <!-- Do not add azurecr.io to AccountName -->
         <RepositoryCredentials AccountName="ohnlt3azreg" Password="ahqzvnSH4Bphc+Z1+YeO=jDW6oOu8i3t" PasswordEncrypted="false"/>
         <!--<Volume Source="c:\minecraft" Destination="c:\testminecraft" IsReadOnly="false"></Volume>-->
@@ -33,6 +51,11 @@
          ServiceFabric PowerShell module.
          
          The attribute ServiceTypeName below must match the name defined in the imported ServiceManifest.xml file. -->
+    <Service Name="Minecraft2" ServicePackageActivationMode="ExclusiveProcess">
+      <StatelessService ServiceTypeName="Minecraft2Type" InstanceCount="[Minecraft2_InstanceCount]">
+        <SingletonPartition />
+      </StatelessService>
+    </Service>
     <Service Name="MineCraft" ServicePackageActivationMode="ExclusiveProcess">
       <StatelessService ServiceTypeName="MineCraft" InstanceCount="[MineCraft_InstanceCount]">
         <SingletonPartition />

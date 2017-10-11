@@ -32,6 +32,8 @@
     <None Include="Scripts\Deploy-FabricApplication.ps1" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ApplicationPackageRoot\Minecraft2Pkg\Config\Settings.xml" />
+    <Content Include="ApplicationPackageRoot\Minecraft2Pkg\ServiceManifest.xml" />
     <Content Include="ApplicationPackageRoot\MineCraftPkg\Config\Settings.xml" />
     <Content Include="ApplicationPackageRoot\MineCraftPkg\ServiceManifest.xml" />
     <Content Include="ApplicationPackageRoot\MineCraftPkg\Code\my.cmd">
